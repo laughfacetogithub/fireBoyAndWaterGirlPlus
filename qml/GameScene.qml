@@ -16,9 +16,10 @@ Scene{
     width: 1080
     height: 640
     PhysicsWorld{
-        debugDrawVisible: true
-
+//        debugDrawVisible: true
+//        gravity: Qt.point(0,20)
     }
+
 
 //    Timer{
 //        id:timer
@@ -33,11 +34,12 @@ Scene{
     Image {
         id: name
         source: "../assets/bg1.jpg"
+        width: 1080
+        height: 640
+        MouseArea{
         anchors.fill: parent
-//        MouseArea{
-//        anchors.fill: parent
-//        onClicked: level.startGame()
-//        }
+        onClicked: player.f_collider.linearVelocity.y=-500
+        }
     }
     ParallaxScrollingBackground {
       id: levelBackground
@@ -73,5 +75,10 @@ Scene{
 
     Level{id:level
      }
+    Player{
+        id:player
+
+        x:150
+    y:150}
 
 }

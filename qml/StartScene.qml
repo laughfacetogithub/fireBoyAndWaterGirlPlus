@@ -32,8 +32,8 @@ Scene {
                 enabled: okbutton.enabled
                 anchors.fill: parent
                 onClicked: {
-                    if (mutebutton.frameNames[0]==="FxButton0000"){mutebutton.frameNames[0]=["FxButton0001"]            }
-                    else{mutebutton.frameNames[0]=["FxButton0000"]}
+                    if (mutebutton.frameNames[0]==="FxButton0000"){mutebutton.frameNames[0]=["FxButton0001"]; clickSound.play()           }
+                    else{mutebutton.frameNames[0]=["FxButton0000"]; clickSound.play()}
                 }
             }}
         TexturePackerAnimatedSprite{
@@ -48,8 +48,8 @@ Scene {
                 enabled: okbutton.enabled
                 anchors.fill: parent
                 onClicked: {
-                    if (vibratebutton.frameNames[0]==="VibrateButton0000"){vibratebutton.frameNames[0]=["VibrateButton0001"]            }
-                    else{vibratebutton.frameNames[0]=["VibrateButton0000"]}
+                    if (vibratebutton.frameNames[0]==="VibrateButton0000"){vibratebutton.frameNames[0]=["VibrateButton0001"];clickSound.play()            }
+                    else{vibratebutton.frameNames[0]=["VibrateButton0000"]; clickSound.play()}
                 }
             }
             }
@@ -65,11 +65,22 @@ Scene {
                 enabled: okbutton.enabled
                 anchors.fill: parent
                 onClicked: {
-                    if (musicbutton.frameNames[0]==="MusicButton0000"){musicbutton.frameNames[0]=["MusicButton0001"]            }
-                    else{musicbutton.frameNames[0]=["MusicButton0000"]}
+                    if (musicbutton.frameNames[0]==="MusicButton0000"){musicbutton.frameNames[0]=["MusicButton0001"]; clickSound.play(); openTheSound.stop();             }
+                    else{musicbutton.frameNames[0]=["MusicButton0000"]; clickSound.play(); openTheSound.play();}
                 }
             }
-            }
+        }
+        SoundEffect {
+           id: clickSound
+           source: "../assets/snd/clickButton.wav"
+        }
+        //open the sound of globalData
+        SoundEffect {
+            id: openTheSound
+            source: "../assets/snd/bg.wav"
+            //infinite play
+            loops: SoundEffect.Infinite
+        }
         Rectangle{
             id:closesetting
             TexturePackerAnimatedSprite{
@@ -280,6 +291,21 @@ Scene {
             }
         }
 
+    }
+    //play the globalData SoundEffect
+    Timer {
+      id: updateTimer
+      interval: 60
+      running: true
+      repeat: false
+      onTriggered: {
+            openTheSound.play();
+      //        var xAxis = controller.xAxis;
+      //        // if xAxis is 0 (no movement command) we slow the player down until he stops
+      //        if(xAxis == 0) {
+      //          if(Math.abs(player.horizontalVelocity) > 10) player.horizontalVelocity /= 1.5
+      //          else player.horizontalVelocity = 0
+      }
     }
 
 }

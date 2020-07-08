@@ -10,6 +10,7 @@ Item {
     width: gamescene.width
     height: gamescene.height
 
+
     // just as an abbreviation of typing, so instead of scene.gridSize just gridSize can be written in this file
     property real gridSize: gamescene.gridSize
 
@@ -28,7 +29,7 @@ Item {
 
     property alias levelMovementAnimation: levelMovementAnimation
     // specifies the px/second how much the level moves
-    property real levelMovementSpeedMinimum: 900
+    property real levelMovementSpeedMinimum: 120
     property real levelMovementSpeedMaximum: 900
     // after 30seconds, the maximum speed will be reached - if you set this too high, also increase the gravity so the player falls faster than the level moves
     property int levelMovementDurationTillMaximum: 60

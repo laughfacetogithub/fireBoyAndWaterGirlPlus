@@ -7,7 +7,6 @@ import Felgo 3.0
 
 
 EntityBase {
-
     id: player
     entityType: "player"
     property int contacts: 0
@@ -84,7 +83,7 @@ EntityBase {
 
     Image {
         id: idle_fire
-        opacity: 1
+        opacity: 0
 //        width: 20
 //        height: 40
 
@@ -115,10 +114,10 @@ EntityBase {
 
     Image {
         id: jumping_fire
-        opacity: 0
+        opacity: 1
         TexturePackerAnimatedSprite{
-                        width:70
-            height:75
+                        width:140
+            height:140
             id: jumping_fire_head
             anchors.verticalCenter: jumping_fire_legs.verticalCenter
             anchors.horizontalCenter: jumping_fire_legs.horizontalCenter
@@ -128,8 +127,8 @@ EntityBase {
         }
 
         TexturePackerAnimatedSprite{
-                        width:60
-            height:80
+                        width:120
+            height:180
             id: jumping_fire_legs
             anchors.bottom:  idle_fire.bottom
             source: "../assets/img/CharAssets.json"
@@ -143,8 +142,8 @@ EntityBase {
         id: falling_fire
         opacity: 0
         TexturePackerAnimatedSprite{
-                        width:60
-            height:75
+                        width:120
+            height:150
             id: falling_fire_head
             anchors.verticalCenter:  rising_fire_legs.verticalCenter
             anchors.horizontalCenter: falling_fire_legs.horizontalCenter
@@ -154,8 +153,8 @@ EntityBase {
         }
 
         TexturePackerAnimatedSprite{
-                        width:60
-            height:80
+                        width:120
+            height:160
             id: falling_fire_legs
             anchors.bottom: idle_fire.bottom
             source: "../assets/img/CharAssets.json"
@@ -222,12 +221,15 @@ EntityBase {
       BoxCollider {
 //        collidesWith: null
     id: fire_collider
-    height: 20
+    height: 80
     restitution: 0
-    width: 25
-    y:38
-    x:15
+    width: 60
+    linearVelocity: Qt.point(0,0)
+//    anchors.fill: dead_fire
+    y:50
+    x:25
     friction: 0
+    force: Qt.point(0,900)
 //    anchors.fill: idle_fire
 //    anchors.top:  idle_fire_legs.bottom-20
   //  anchors.horizontalCenter: idle_fire_head.horizontalCenter
