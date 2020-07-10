@@ -48,7 +48,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":61,"h":61},
 	"sourceSize": {"w":61,"h":61}
 }
-,"":{
+,"CursorToggle0000":{
 	"filename": "CursorToggle0000",
 	"frame": {"x":358,"y":0,"w":196,"h":90},
 	"rotated": false,

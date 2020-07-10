@@ -1,19 +1,52 @@
+/**
+ * Author:group 10
+ * Date:2020-07-08
+ * Describe: ground
+ */
+
 import QtQuick 2.0
 import Felgo 3.0
 
 Item {
+    property alias destroy_timer: destroy_timer
+    property alias gw_timer: gw_timer
+    property alias gw1_timer: gw1_timer
 
+    function creatpt_three(){
+        var obj = pt_three.createObject(gamescene,{});
+        return obj;
+    }
+
+    function creatpt_two(){
+        var obj = pt_two.createObject(gamescene,{});
+        return obj;
+    }
+
+    function creatpt_one(){
+        var obj = pt_one.createObject(gamescene,{});
+        return obj;
+    }
+
+    function gw_1(){
+        var obj = gw1.createObject(gamescene,{});
+        return obj;
+    }
+
+    function creatpt_blood(){
+        var obj = blood.createObject(gamescene,{});
+        return obj;
+    }
 
     Timer{
         id: push_timer
 
-        property var gw: []
+        property var blo: []
 
         //自定义数组对象来保存动态创建的矩形
         property var pt: []
 
         //定时器运行时间属性单位毫秒
-        interval: 200
+        interval: 300
 
         //开始就触发定时器
         running: true
@@ -21,60 +54,75 @@ Item {
         //不断重复
         repeat: true
 
-
-
         property int pt_j: 0
         property int pt_k: 0
-        property int gw_j: 0
-        property int gw_k: 0
+        property int blo_j: 0
+        property int blo_k: 0
         property int current_x: 0
         property int current_y: 0
         property int next_x: 0
-        property int next_y: 400
+        property int next_y: 600
         property int random_y: 0
         property int random_pt: 0
-        property int random_three_max: 4
-         property int random_two_max: 6
-         property int random_one_max: 8
-        property int max_a: 10
+        property int random_three_max: 5
+        property int random_two_max: 10
+        property int random_one_max: 15
+
 
         //定时器触发时来执行脚本
         onTriggered: {
-
-            destroy_timer.running = true
             timer.running = true
-            if(pt_j - destroy_timer.j  < 50)
-            for(var a = 0; a < 30; a++){
+
+            for(var a = 0; a < 1; a++){
+
+
                 if(random_pt < random_three_max && random_pt >= 0){
 
 
-                    pt.push(creatpt_three())
+                    pt.push(creatpt_three());
                     pt[pt_j].x = next_x
                     pt[pt_j].y = next_y
                     pt_j++
 
+                    if(utils.generateRandomValueBetween(1,26) <= 2){
+                        blo.push(creatpt_blood());
+                        blo[blo_j].x = next_x + utils.generateRandomValueBetween(170,700)
+                        blo[blo_j].y = next_y - 50
+                        //c
+                        blo_j++
+                    }
+
                     current_x = next_x
-                    next_x = current_x + utils.generateRandomValueBetween(120,320) + 822
+                    next_x = current_x + utils.generateRandomValueBetween(150,170) + 822
 
                     current_y = next_y
-                    random_y = utils.generateRandomValueBetween(60,90)
-                    if(next_y + random_y > 450){
+                    random_y = utils.generateRandomValueBetween(30,90)
+                    if(next_y + random_y > 700){
                         next_y -= random_y
                     }else{
                         next_y += random_y
                     }
+
                 }else if(random_pt > random_three_max && random_pt < random_two_max){
                     pt.push(creatpt_two());
                     pt[pt_j].x = next_x
                     pt[pt_j].y = next_y
                     pt_j++
 
+                    if(utils.generateRandomValueBetween(1,26) <= 2){
+                        blo.push(creatpt_blood());
+                        blo[blo_j].x = next_x + utils.generateRandomValueBetween(100,400)
+                        blo[blo_j].y = next_y - 50
+                        //c
+                        blo_j++
+                    }
+
                     current_x = next_x
-                    next_x = current_x + utils.generateRandomValueBetween(120,320) + 563
+                    next_x = current_x + utils.generateRandomValueBetween(140,160) + 563
 
                     current_y = next_y
-                    random_y = utils.generateRandomValueBetween(60,90)
-                    if(next_y + random_y > 500){
+                    random_y = utils.generateRandomValueBetween(30,90)
+                    if(next_y + random_y > 700){
                         next_y -= random_y
                     }else{
                         next_y += random_y
@@ -85,49 +133,36 @@ Item {
                     pt[pt_j].y = next_y
                     pt_j++
 
+                    if(utils.generateRandomValueBetween(1,26) <= 2){
+                        blo.push(creatpt_blood());
+                        blo[blo_j].x = next_x + utils.generateRandomValueBetween(100,200)
+                        blo[blo_j].y = next_y - 50
+                        //c
+                        blo_j++
+                    }
+
                     current_x = next_x
-                    next_x = current_x + utils.generateRandomValueBetween(120,320) + 304
+                    next_x = current_x + utils.generateRandomValueBetween(130,140) + 304
 
                     current_y = next_y
-                    random_y = utils.generateRandomValueBetween(60,90)
-                    if(next_y + random_y > 500){
+                    random_y = utils.generateRandomValueBetween(30,90)
+                    if(next_y + random_y > 700){
                         next_y -= random_y
                     }else{
                         next_y += random_y
                     }
                 }
 
-                random_pt = utils.generateRandomValueBetween(0,random_one_max)
+                random_pt = utils.generateRandomValueBetween(1,random_one_max)
             }
         }
-
-        function creatpw(){
-            var obj=gw.createObject(gamescene,{});
-            return obj;
-                }
-        function creatpt_three(){
-            var obj = pt_three.createObject(gamescene,{});
-            return obj;
-        }
-
-        function creatpt_two(){
-            var obj = pt_two.createObject(gamescene,{});
-            return obj;
-        }
-
-        function creatpt_one(){
-            var obj = pt_one.createObject(gamescene,{});
-            return obj;
-        }
-
-
     }
 
     Timer{
         id:destroy_timer
 
         //定时器运行时间属性单位毫秒
-        interval: 100
+        interval: 1
 
         //开始就触发定时器
         running: false
@@ -137,12 +172,11 @@ Item {
 
         property int j: 0
         onTriggered: {
-            for(var i = 0; i < 1; i++){
-                if(push_timer.pt[j].x < -1500){
+            for(var i = 0; i < 1000; i++){
+                if(push_timer.pt[j].x < -900){
                     push_timer.pt[j].destroy();
                     j++
-                    console.log("12323123123213213123123232324")
-                }
+                }else break
             }
         }
     }
@@ -151,7 +185,7 @@ Item {
         id:timer
 
         //定时器运行时间属性单位毫秒
-        interval: 100
+        interval: 1000
 
         //开始就触发定时器
         running: false
@@ -164,112 +198,152 @@ Item {
             if(push_timer.random_one_max < 30){
                 push_timer.random_two_max ++
                 push_timer.random_one_max += 2
-                console.log("pppppppppppppppppppp",push_timer.random_one_max,push_timer.random_two_max)
-            }else repeat = false
+            }else if(push_timer.random_one_max < 60){
+                push_timer.random_one_max += 2
+            }else if(push_timer.random_one_max > 70){
+                repeat = false
+            }
         }
     }
+
     Timer{
-                property  int  r: 0
+        id: gw_timer
+        property  int  r: 0
         interval: 5000
-        running: true
+        running: false
         repeat: true
         onTriggered: {
             r=utils.generateRandomValueBetween(1,100)
             if(r<50){
-            gw.createObject(gamescene,{})
-//                        pt[gw_j].x=next_x
-//                        pt[gw_j].y=100
-//                        pt_j++
+                gw.createObject(gamescene,{})
             }
         }
     }
+
     Timer{
+        id: gw1_timer
         property int k: 0
         interval: 5000
-        running: true
+        running: false
         repeat: true
         onTriggered: {
             k=utils.generateRandomValueBetween(1,100)
-            if(k<90)
+            if(k>10)
                 gw1.createObject(gamescene,{})
         }
     }
 
-//    Component{
-//        id:enemy
-//        EntityBase{
-//            entityType: "enemy"
-//            x:800
-//            y:150
-//            TexturePackerAnimatedSprite{
-//                id:gw1
-//                width: 75
-//                height: 115
-//                source: "../assets/img/gw1.json"
-//                frameNames: ["enemy-0.png","enemy-1.png","enemy-2.png","enemy-3.png","enemy-4.png","enemy-5.png","enemy-6.png","enemy-7.png","enemy-8.png"]
-//                frameRate: 5
-//                BoxCollider{
-////                    width: 75
-////                    height: 115
-//                    anchors.fill: enemy
-////                        force: Qt.point(0,900)
-//                }
-//            }
-//        }
-//    }
     Component{
         id:gw1
-        EntityBase{
-            entityType: "gw"
-            x:800
-            y:180
-            TexturePackerAnimatedSprite{
-                                width: 75
-                                height: 115
-            source: "../assets/img/gw1.json"
-            frameNames: ["enemy-0.png","enemy-1.png","enemy-2.png","enemy-3.png","enemy-4.png","enemy-5.png","enemy-6.png","enemy-7.png","enemy-8.png"]
-            frameRate: 5
+        Item {
+            id: item
+            EntityBase{
+                id:gw1_base
+                x: 1900
+                y: 485
+                width: 75
+                height: 115
+                TexturePackerAnimatedSprite{
+                    anchors.fill: parent
+                    source: "../assets/img/gw1.json"
+                    frameNames: ["enemy-0.png","enemy-1.png","enemy-2.png","enemy-3.png","enemy-4.png","enemy-5.png","enemy-6.png","enemy-7.png","enemy-8.png"]
+                    frameRate: 5
+                }
+
+
+                BoxCollider{
+                    width: 59
+                    height: 110
+                    anchors.fill:parent
+                    //                    anchors.left: parent.left
+                    //                    anchors.top: parent.top
+                    //                    force: Qt.point(0,920)
+                    //                    linearVelocity: Qt.point(linearVelocity.x = -520)
+                    categories: Box.Category5
+                    collidesWith: Box.Category3 | Box.Category6
+                    fixture.onBeginContact: {
+                        gw1_base.opacity = 0
+                        gw1_base.y += 1000
+                    }
+
+                }
+
+                BoxCollider{
+                    id: gw1_dc
+                    width: 70
+                    height: 110
+                    anchors.fill: parent
+                    force: Qt.point(0,800)
+                    linearVelocity:Qt.point(linearVelocity.x = -490)
+                    categories: Box.Category4
+                    collidesWith: Box.Category1
+                    fixture.onEndContact: {
+                        if(linearVelocity.y < 150){
+                            linearVelocity.x = -800
+                            linearVelocity.y = - 500
+                        }
+                    }
+                }
             }
-            BoxCollider{
-                width: 70
-                height: 110
-                anchors.fill: gw1
-//                anchors.bottom: gw1.bottom
-                force: Qt.point(0,10000)
-            linearVelocity:Qt.point(linearVelocity.x=-400)
-            onLinearVelocityChanged: {
-              if(linearVelocity.y > 0) linearVelocity.y = 0
-            }
-            }
+
         }
     }
+
     Component{
         id:gw
         EntityBase{
-            entityType: "gw"
-            x:700
-            y:100
+            id: gw_base
+            x: 2000
+            y: utils.generateRandomValueBetween(250,500)
             TexturePackerAnimatedSprite{
-            source: "../assets/img/gw2.json"
-            frameNames: ["crow-0.png","crow-1.png","crow-2.png","crow-3.png","crow-4.png","crow-5.png","crow-6.png"]
-            frameRate: 8
+                source: "../assets/img/gw2.json"
+                frameNames: ["crow-0.png","crow-1.png","crow-2.png","crow-3.png","crow-4.png","crow-5.png","crow-6.png"]
+                frameRate: 8
             }
+
             BoxCollider{
-//                width: 80
-//                height: 80
-                anchors.fill: gw
-            linearVelocity:Qt.point(linearVelocity.x=-100)
-            onLinearVelocityChanged: {
-              if(linearVelocity.y > 0) linearVelocity.y = 0
-            }
+                sensor: true
+                width: 80
+                height: 80
+                force: Qt.point(0,0)
+                linearVelocity:Qt.point(linearVelocity.x = -500)
+                categories: Box.Category5
+                collidesWith: Box.Category3 | Box.Category6
+                fixture.onBeginContact: {
+                    gw_base.opacity = 0
+                    gw_base.y -= 1000
+                }
             }
         }
     }
+
+    Component{
+        id: blood
+        EntityBase{
+            id: b_base
+            entityType: "biood"
+            Image {
+                source: "../assets/img/blood.png"
+            }
+            BoxCollider{
+                width: 60
+                height: 50
+                //                force: Qt.point(0,300)
+                linearVelocity:Qt.point(linearVelocity.x = -450)
+                categories: Box.Category8
+                collidesWith: Box.Category7
+                fixture.onBeginContact: {
+                    b_base.opacity = 0
+                    b_base.y += 1000
+                }
+            }
+        }
+    }
+
     Component{
         id: pt_three
 
         EntityBase{
-//            id:pt_three
             entityType: "pt"
             Rectangle{
                 id:ground
@@ -300,16 +374,16 @@ Item {
             }
 
             BoxCollider{
+                friction: 0
                 width: 822
                 height: 50
-//                bodyType: Body.Static
-//                anchors.left: bam_left.left
-//                anchors.right: bam_right.right
+                density: 10000
+                anchors.left: bam_left.left
+                anchors.right: bam_right.right
                 linearVelocity:Qt.point(linearVelocity.x=-450)
-                density: 15000
-                onLinearVelocityChanged: {
-                  if(linearVelocity.y > 0) linearVelocity.y = 0
-                }
+                categories: Box.Category1
+                collidesWith: Box.Category2 | Box.Category4
+
             }
         }
     }
@@ -343,15 +417,15 @@ Item {
             }
 
             BoxCollider{
+                friction: 0
                 width: 563
                 height: 50
-//                anchors.left: bam_left.left
-//                anchors.right: bam_right.right
+                density: 10000
+                anchors.left: bam_left.left
+                anchors.right: bam_right.right
                 linearVelocity:Qt.point(linearVelocity.x=-450)
-                density: 15000
-                onLinearVelocityChanged: {
-                  if(linearVelocity.y > 0) linearVelocity.y = 0
-                }
+                categories: Box.Category1
+                collidesWith: Box.Category2 | Box.Category4
             }
         }
     }
@@ -381,16 +455,15 @@ Item {
             }
 
             BoxCollider{
+                friction: 0
                 width: 304
                 height: 50
-//                anchors.left: bam_left.left
-//                anchors.right: bam_right.right
+                density: 10000
+                anchors.left: bam_left.left
+                anchors.right: bam_right.right
                 linearVelocity:Qt.point(linearVelocity.x=-450)
-                density: 15000
-
-                onLinearVelocityChanged: {
-                  if(linearVelocity.y > 0) linearVelocity.y = 0
-                }
+                categories: Box.Category1
+                collidesWith: Box.Category2 | Box.Category4
             }
         }
     }

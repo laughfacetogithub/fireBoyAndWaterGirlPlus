@@ -9,6 +9,8 @@ Scene {
     height: 400
     gridSize: 32
 
+    property alias openTheSound: openTheSound
+
     Rectangle{
         id:opensetting
         anchors.centerIn: parent
@@ -32,8 +34,11 @@ Scene {
                 enabled: okbutton.enabled
                 anchors.fill: parent
                 onClicked: {
-                    if (mutebutton.frameNames[0]==="FxButton0000"){mutebutton.frameNames[0]=["FxButton0001"]; clickSound.play()           }
-                    else{mutebutton.frameNames[0]=["FxButton0000"]; clickSound.play()}
+                    if (mutebutton.frameNames[0]==="FxButton0000"){
+                        mutebutton.frameNames[0]=["FxButton0001"];
+                        clickSound.play();
+                    }
+                    else{mutebutton.frameNames[0]=["FxButton0000"];clickSound.play()}
                 }
             }}
         TexturePackerAnimatedSprite{
@@ -49,10 +54,10 @@ Scene {
                 anchors.fill: parent
                 onClicked: {
                     if (vibratebutton.frameNames[0]==="VibrateButton0000"){vibratebutton.frameNames[0]=["VibrateButton0001"];clickSound.play()            }
-                    else{vibratebutton.frameNames[0]=["VibrateButton0000"]; clickSound.play()}
+                    else{vibratebutton.frameNames[0]=["VibrateButton0000"];clickSound.play()}
                 }
             }
-            }
+        }
         TexturePackerAnimatedSprite{
             id:musicbutton
             width: 80
@@ -65,22 +70,21 @@ Scene {
                 enabled: okbutton.enabled
                 anchors.fill: parent
                 onClicked: {
-                    if (musicbutton.frameNames[0]==="MusicButton0000"){musicbutton.frameNames[0]=["MusicButton0001"]; clickSound.play(); openTheSound.stop();             }
-                    else{musicbutton.frameNames[0]=["MusicButton0000"]; clickSound.play(); openTheSound.play();}
+                    if (musicbutton.frameNames[0]==="MusicButton0000"){musicbutton.frameNames[0]=["MusicButton0001"];clickSound.play();openTheSound.stop()            }
+                    else{musicbutton.frameNames[0]=["MusicButton0000"];clickSound.play();openTheSound.play()}
                 }
             }
         }
         SoundEffect {
-           id: clickSound
-           source: "../assets/snd/clickButton.wav"
+            id: clickSound
+            source: "../assets/snd/clickButton.wav"
         }
-        //open the sound of globalData
-        SoundEffect {
+        SoundEffect  {
             id: openTheSound
-            source: "../assets/snd/bg.wav"
-            //infinite play
+            source: "../assets/snd/LevelMusic_dark.wav"
             loops: SoundEffect.Infinite
         }
+
         Rectangle{
             id:closesetting
             TexturePackerAnimatedSprite{
@@ -164,20 +168,20 @@ Scene {
             Rectangle{
                 x:80
                 y:260
-            TexturePackerAnimatedSprite{
-                id: idle_head
-                source: "../assets/img/CharAssets.json"
-                frameNames:["fire_head_idle0000", "fire_head_idle0001", "fire_head_idle0002", "fire_head_idle0003", "fire_head_idle0004", "fire_head_idle0005", "fire_head_idle0006", "fire_head_idle0007", "fire_head_idle0008", "fire_head_idle0009", "fire_head_idle0010", "fire_head_idle0011", "fire_head_idle0012", "fire_head_idle0013", "fire_head_idle0014", "fire_head_idle0015", "fire_head_idle0016", "fire_head_idle0017", "fire_head_idle0018"]
-                frameRate: 30
+                TexturePackerAnimatedSprite{
+                    id: idle_head
+                    source: "../assets/img/CharAssets.json"
+                    frameNames:["fire_head_idle0000", "fire_head_idle0001", "fire_head_idle0002", "fire_head_idle0003", "fire_head_idle0004", "fire_head_idle0005", "fire_head_idle0006", "fire_head_idle0007", "fire_head_idle0008", "fire_head_idle0009", "fire_head_idle0010", "fire_head_idle0011", "fire_head_idle0012", "fire_head_idle0013", "fire_head_idle0014", "fire_head_idle0015", "fire_head_idle0016", "fire_head_idle0017", "fire_head_idle0018"]
+                    frameRate: 30
+                }
+                TexturePackerAnimatedSprite{
+                    id: idle_fire_legs
+                    anchors.horizontalCenter: idle_head.horizontalCenter
+                    source: "../assets/img/CharAssets.json"
+                    frameNames: ["fire_legs_idle0000"]
+                    frameRate: 30
+                }
             }
-            TexturePackerAnimatedSprite{
-                id: idle_fire_legs
-                anchors.horizontalCenter: idle_head.horizontalCenter
-                source: "../assets/img/CharAssets.json"
-                frameNames: ["fire_legs_idle0000"]
-                frameRate: 30
-            }
-        }
             Rectangle{
                 x:460
                 y:260
@@ -292,20 +296,63 @@ Scene {
         }
 
     }
-    //play the globalData SoundEffect
+
     Timer {
-      id: updateTimer
-      interval: 60
-      running: true
-      repeat: false
-      onTriggered: {
-            openTheSound.play();
-      //        var xAxis = controller.xAxis;
-      //        // if xAxis is 0 (no movement command) we slow the player down until he stops
-      //        if(xAxis == 0) {
-      //          if(Math.abs(player.horizontalVelocity) > 10) player.horizontalVelocity /= 1.5
-      //          else player.horizontalVelocity = 0
-      }
+        id: updateTimer
+        interval: 60
+        running: true
+        repeat: false
+        onTriggered: {
+            openTheSound.play()
+        }
+    }
+
+    property int shape: 1
+
+    Image {
+        id: swich
+        x:223
+        y:315
+        //        Rotation.origin.x:75
+        //        Rotation.origin.y:30
+        //        rotation: -170
+
+        transform: Rotation{
+            origin.x:75;origin.y:30
+            angle: -170
+        }
+
+        //        transformOrigin: Item.TopLeft
+        //        anchors.horizontalCenter: playbutton.horizontalCenter
+        TexturePackerAnimatedSprite{
+            id:swich1
+            width: 150
+            height: 60
+            source: "../assets/img/PopupAssets.json"
+            frameNames: ["CursorToggle0000"]
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    clickSound.play()
+                    if(shape===1){
+                        //                        swich.rotation.origin.x=75
+                        //                        swich.rotation.origin.y=30
+                        swich.rotation=-20
+                        gamescene.player.jumping_fire.opacity=0
+                        gamescene.player.jumping_water.opacity=1
+                        shape=0
+                    }
+                    else if(shape===0){
+                        //                        swich.rotation=-1
+
+                        swich.rotation=0
+                        gamescene.player.jumping_fire.opacity=1
+                        gamescene.player.jumping_water.opacity=0
+                        shape=1
+                        /*gamescene.player.state="fire"*/}
+                }
+            }
+        }
     }
 
 }

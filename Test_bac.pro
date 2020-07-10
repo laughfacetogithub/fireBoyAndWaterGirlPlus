@@ -62,4 +62,5 @@ macx {
 DISTFILES += \
     qml/Ground.qml \
     qml/Level.qml \
-    qml/Player.qml
+    qml/Player.qml \
+    qml/Region1.qml

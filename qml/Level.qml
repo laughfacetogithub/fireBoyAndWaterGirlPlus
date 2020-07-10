@@ -25,7 +25,7 @@ Item {
     property real currentRow: 0
 
     // this is needed so an alias can be created from the main window!
-    //  property alias player: player
+    property alias ground: ground
 
     property alias levelMovementAnimation: levelMovementAnimation
     // specifies the px/second how much the level moves
@@ -81,20 +81,7 @@ Item {
     }
 
 
-//    Timer{
-//        interval: 500
-//        running: true
-//        repeat: false
-//        onTriggered: {
-//            var newElementsproperties={
-//                x=100,
-//                y=utils.generateRandomValueBetween(0,500)
-//            }
 
-//            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Ground.qml"),newElementsproperties)
-
-//        }
-//    }
 
     MovementAnimation {
         id: levelMovementAnimation

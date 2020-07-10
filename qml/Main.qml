@@ -1,3 +1,9 @@
+/**
+ * Author:group 10
+ * Date:2020-07-08
+ * Describe: main scene
+ */
+
 import Felgo 3.0
 import QtQuick 2.0
 
@@ -39,14 +45,19 @@ GameWindow {
             name: "start"
             PropertyChanges {
                 target: {
-                    startScene.opacity=1
+                    startScene.opacity = 1
                 }
             }
         },State {
             name: "game"
             PropertyChanges {
+
                 target: {
-                    gamescene.opacity=1
+                    gamescene.level.ground.destroy_timer.running = true
+                    gamescene.level.ground.gw_timer.running = true
+                    gamescene.level.ground.gw1_timer.running = true
+                    gamescene.record.score_timer.running = true
+                    gamescene.opacity = 1
                     gamescene.level.startGame()
                 }
             }
